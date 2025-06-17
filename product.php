@@ -13,6 +13,9 @@
     <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
+          <strong>
+            <span class="glyphicon glyphicon-th"></span>
+            <span>All Product</span>
          <div class="pull-right">
            <a href="add_product.php" class="btn btn-primary">Add New</a>
          </div>

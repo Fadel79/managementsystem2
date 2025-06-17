@@ -40,22 +40,44 @@
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-credit-card"></i>
-       <span>Sales</span>
+       <span>Report</span>
       </a>
       <ul class="nav submenu">
-         <li><a href="sales.php">Manage Sales</a> </li>
-         <li><a href="add_sale.php">Add Sale</a> </li>
+         <li><a href="sales.php">Manage Report</a> </li>
+         <li><a href="add_sale.php">Add Report</a> </li>
      </ul>
   </li>
   <li>
     <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-duplicate"></i>
-       <span>Sales Report</span>
+      <i class="glyphicon glyphicon-user"></i>
+       <span>Supplier</span>
       </a>
       <ul class="nav submenu">
-        <li><a href="sales_report.php">Sales by dates </a></li>
-        <li><a href="monthly_sales.php">Monthly sales</a></li>
-        <li><a href="daily_sales.php">Daily sales</a> </li>
-      </ul>
+         <li><a href="supplier.php">Manage Supplier</a> </li>
+         <li><a href="">Add Supplier</Sup></a> </li>
+     </ul>
   </li>
+    <li>
+    <a href="#" class="submenu-toggle">
+      <i class="glyphicon glyphicon-user"></i>
+       <span>Customer</span>
+      </a>
+      <ul class="nav submenu">
+         <li><a href="">Manage Customer</a> </li>
+         <li><a href="">Add Customer</a> </li>
+     </ul>
+  </li>
+    <!--
+<li>
+  <a href="#" class="submenu-toggle">
+    <i class="glyphicon glyphicon-duplicate"></i>
+     <span>Sales Report</span>
+    </a>
+    <ul class="nav submenu">
+      <li><a href="sales_report.php">Sales by dates </a></li>
+      <li><a href="monthly_sales.php">Monthly sales</a></li>
+      <li><a href="daily_sales.php">Daily sales</a> </li>
+    </ul>
+</li>
+-->
 </ul>
