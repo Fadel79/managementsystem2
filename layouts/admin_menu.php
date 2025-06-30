@@ -43,8 +43,8 @@
        <span>Report</span>
       </a>
       <ul class="nav submenu">
-         <li><a href="sales.php">Manage Report</a> </li>
-         <li><a href="add_sale.php">Add Report</a> </li>
+         <li><a href="sales.php">Stock_in</a> </li>
+         <li><a href="add_sale.php">Stock_out</a> </li>
      </ul>
   </li>
   <li>
@@ -54,7 +54,7 @@
       </a>
       <ul class="nav submenu">
          <li><a href="supplier.php">Manage Supplier</a> </li>
-         <li><a href="">Add Supplier</Sup></a> </li>
+         <li><a href="add_supplier.php">Add Supplier</Sup></a> </li>
      </ul>
   </li>
     <li>
@@ -63,8 +63,8 @@
        <span>Customer</span>
       </a>
       <ul class="nav submenu">
-         <li><a href="">Manage Customer</a> </li>
-         <li><a href="">Add Customer</a> </li>
+         <li><a href="customer.php">Manage Customer</a> </li>
+         <li><a href="add_customer.php">Add Customer</a> </li>
      </ul>
   </li>
     <!--

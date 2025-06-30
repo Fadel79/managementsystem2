@@ -172,6 +172,44 @@ INSERT INTO `user_groups` (`id`, `group_name`, `group_level`, `group_status`) VA
 
 --
 -- Indexes for dumped tables
+
+--- supplier customor
+-- --------------------------------------------------------
+-- Table structure for table `suppliers`
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suppliers` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `supplier_name` VARCHAR(100) NOT NULL,
+  `mobile_phone` VARCHAR(20) DEFAULT NULL,
+  `email` VARCHAR(100) DEFAULT NULL,
+  `address` TEXT,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Sample data (optional)
+INSERT INTO `suppliers` (`supplier_name`, `mobile_phone`, `email`, `address`) VALUES
+('PT Sumber Makmur', '081234567890', 'makmur@supplier.com', 'Jl. Industri No. 12, Jakarta'),
+('CV Cahaya Abadi', '082345678901', 'cahaya@supplier.com', 'Jl. Raya Bekasi No. 33, Bekasi');
+
+-- --------------------------------------------------------
+-- Table structure for table `customers`
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_name` VARCHAR(100) NOT NULL,
+  `mobile_phone` VARCHAR(20) DEFAULT NULL,
+  `email` VARCHAR(100) DEFAULT NULL,
+  `address` TEXT,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Sample data (optional)
+INSERT INTO `customers` (`customer_name`, `mobile_phone`, `email`, `address`) VALUES
+('Budi Santoso', '081122334455', 'budi@pelanggan.com', 'Jl. Merdeka No. 45, Bandung'),
+('Siti Aminah', '082233445566', 'siti@pelanggan.com', 'Jl. Siliwangi No. 7, Bogor');
+
 --
 
 --

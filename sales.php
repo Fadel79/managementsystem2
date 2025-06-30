@@ -19,7 +19,7 @@ $sales = find_all_sale();
         <div class="panel-heading clearfix">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>All Sales</span>
+            <span>All Report</span>
           </strong>
           <div class="pull-right">
             <a href="add_sale.php" class="btn btn-primary">Add sale</a>
@@ -28,15 +28,20 @@ $sales = find_all_sale();
         <div class="panel-body">
           <table class="table table-bordered table-striped">
             <thead>
-              <tr>
-                <th class="text-center" style="width: 50px;">#</th>
-                <th> Product name </th>
-                <th class="text-center" style="width: 15%;"> Quantity</th>
-                <th class="text-center" style="width: 15%;"> Total </th>
-                <th class="text-center" style="width: 15%;"> Date </th>
-                <th class="text-center" style="width: 100px;"> Actions </th>
-             </tr>
-            </thead>
+  <tr>  
+    <th class="text-center">ID Laporan</th>
+    <th class="text-center">ID Barang</th>
+    <th>Nama Barang</th>
+    <th>Supplier</th>
+    <th class="text-center">Tanggal Masuk</th>
+    <th class="text-center">Qty Masuk</th>
+    <th class="text-center">Tanggal Keluar</th>
+    <th class="text-center">Qty Keluar</th>
+    <th>Customer</th>
+    <th class="text-center" style="width: 100px;">Actions</th>
+  </tr>
+</thead>
+
            <tbody>
              <?php foreach ($sales as $sale):?>
              <tr>
