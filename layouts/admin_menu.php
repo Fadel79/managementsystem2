@@ -43,7 +43,7 @@
        <span>Report</span>
       </a>
       <ul class="nav submenu">
-         <li><a href="sales.php">Stock_in</a> </li>
+         <li><a href="stock_in.php">Stock_in</a> </li>
          <li><a href="add_sale.php">Stock_out</a> </li>
      </ul>
   </li>
