@@ -22,20 +22,28 @@
     </a>
   </li>
   <li>
-    <a href="#" class="submenu-toggle">
+    <a href="product.php" class="submenu-toggle">
       <i class="glyphicon glyphicon-th-large"></i>
       <span>Products</span>
     </a>
-    <ul class="nav submenu">
-       <li><a href="product.php">Manage Products</a> </li>
-       <li><a href="add_product.php">Add Products</a> </li>
-   </ul>
   </li>
   <li>
     <a href="media.php" >
       <i class="glyphicon glyphicon-picture"></i>
       <span>Media Files</span>
     </a>
+  </li>
+    <li>
+    <a href="supplier.php" class="submenu-toggle">
+      <i class="glyphicon glyphicon-user"></i>
+       <span>Supplier</span>
+      </a>
+  </li>
+    <li>
+    <a href="customer.php" class="submenu-toggle">
+      <i class="glyphicon glyphicon-user"></i>
+       <span>Customer</span>
+      </a>
   </li>
   <li>
     <a href="#" class="submenu-toggle">
@@ -47,37 +55,4 @@
          <li><a href="stock_out.php">Stock_out</a> </li>
      </ul>
   </li>
-  <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Supplier</span>
-      </a>
-      <ul class="nav submenu">
-         <li><a href="supplier.php">Manage Supplier</a> </li>
-         <li><a href="add_supplier.php">Add Supplier</Sup></a> </li>
-     </ul>
-  </li>
-    <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Customer</span>
-      </a>
-      <ul class="nav submenu">
-         <li><a href="customer.php">Manage Customer</a> </li>
-         <li><a href="add_customer.php">Add Customer</a> </li>
-     </ul>
-  </li>
-    <!--
-<li>
-  <a href="#" class="submenu-toggle">
-    <i class="glyphicon glyphicon-duplicate"></i>
-     <span>Sales Report</span>
-    </a>
-    <ul class="nav submenu">
-      <li><a href="sales_report.php">Sales by dates </a></li>
-      <li><a href="monthly_sales.php">Monthly sales</a></li>
-      <li><a href="daily_sales.php">Daily sales</a> </li>
-    </ul>
-</li>
--->
 </ul>
