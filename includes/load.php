@@ -32,5 +32,14 @@ function find_stock_in() {
   return find_by_sql($sql);
 }
 
+function find_stock_out() {
+  global $db;
+  $sql  = "SELECT so.id, p.name AS product_name, c.customer_name, so.quantity, so.date_received ";
+  $sql .= "FROM stock_out so ";
+  $sql .= "LEFT JOIN products p ON so.product_id = p.id ";
+  $sql .= "LEFT JOIN customers c ON so.customer_id = c.id ";
+  $sql .= "ORDER BY so.date_received DESC";
+  return find_by_sql($sql);
+}
 
 ?>
