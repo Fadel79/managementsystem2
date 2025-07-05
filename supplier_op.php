@@ -23,7 +23,6 @@
           <span class="glyphicon glyphicon-briefcase"></span>
           <span>Suppliers</span>
         </strong>
-        <a href="add_supplier.php" class="btn btn-info pull-right btn-sm">Add New Supplier</a>
       </div>
       <div class="panel-body">
         <table class="table table-bordered">

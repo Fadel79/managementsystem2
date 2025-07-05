@@ -59,7 +59,7 @@
           <label for="status">Status</label>
               <select class="form-control" name="status">
                 <option <?php if($e_group['group_status'] === '1') echo 'selected="selected"';?> value="1"> Active </option>
-                <option <?php if($e_group['group_status'] === '0') echo 'selected="selected"';?> value="0">Deactive</option>
+                <option <?php if($e_group['group_status'] === '0') echo 'selected="selected"';?> value="0">Non active</option>
               </select>
         </div>
         <div class="form-group clearfix">

@@ -44,7 +44,7 @@
            <?php if($a_group['group_status'] === '1'): ?>
             <span class="label label-success"><?php echo "Active"; ?></span>
           <?php else: ?>
-            <span class="label label-danger"><?php echo "Deactive"; ?></span>
+            <span class="label label-danger"><?php echo "Non active"; ?></span>
           <?php endif;?>
            </td>
            <td class="text-center">

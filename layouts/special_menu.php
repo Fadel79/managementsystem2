@@ -6,31 +6,9 @@
     </a>
   </li>
   <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-      <span>User Management</span>
-    </a>
-    <ul class="nav submenu">
-      <li><a href="group_op.php">Manage Groups</a> </li>
-      <li><a href="users_op.php">Manage Users</a> </li>
-   </ul>
-  </li>
-  <li>
-    <a href="categorie_op.php" >
-      <i class="glyphicon glyphicon-indent-left"></i>
-      <span>Categories</span>
-    </a>
-  </li>
-  <li>
     <a href="product_op.php" class="submenu-toggle">
       <i class="glyphicon glyphicon-th-large"></i>
       <span>Products</span>
-    </a>
-  </li>
-  <li>
-    <a href="media_op.php" >
-      <i class="glyphicon glyphicon-picture"></i>
-      <span>Media Files</span>
     </a>
   </li>
     <li>

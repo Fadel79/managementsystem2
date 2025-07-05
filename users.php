@@ -48,12 +48,15 @@
            <?php if($a_user['status'] === '1'): ?>
             <span class="label label-success"><?php echo "Active"; ?></span>
           <?php else: ?>
-            <span class="label label-danger"><?php echo "Deactive"; ?></span>
+            <span class="label label-danger"><?php echo "Non active"; ?></span>
           <?php endif;?>
            </td>
            <td><?php echo read_date($a_user['last_login'])?></td>
            <td class="text-center">
              <div class="btn-group">
+                <a href="detail_user.php?id=<?php echo (int)$a_user['id']; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="Detail">
+                  <i class="glyphicon glyphicon-eye-open"></i>
+                </a>
                 <a href="edit_user.php?id=<?php echo (int)$a_user['id'];?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
                   <i class="glyphicon glyphicon-pencil"></i>
                </a>
