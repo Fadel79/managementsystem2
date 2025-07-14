@@ -1,14 +1,10 @@
-<!-- <?php
+<?php
   $page_title = 'All Supplier';
   require_once('includes/load.php');
-  // Cek level user untuk akses halaman
-  page_require_level(3);
-
-  // Ambil semua data supplier
-  $all_suppliers = find_all('suppliers'); // Pastikan fungsi ini tersedia di load.php
-
+  page_require_level(2);
+  $all_suppliers = find_all('suppliers');
   include_once('layouts/header.php');
-?> -->
+?>
 
 <div class="row">
    <div class="col-md-12">
@@ -23,6 +19,7 @@
           <span class="glyphicon glyphicon-briefcase"></span>
           <span>Suppliers</span>
         </strong>
+        <!-- Tombol Add New Supplier dihapus -->
       </div>
       <div class="panel-body">
         <table class="table table-bordered">
@@ -33,7 +30,7 @@
               <th>Phone Number</th>
               <th>Email</th>
               <th>Address</th>
-              <th class="text-center" style="width: 100px;">Actions</th>
+              <!-- Kolom Actions dihapus -->
             </tr>
           </thead>
           <tbody>
@@ -44,20 +41,19 @@
                 <td><?php echo remove_junk($supplier['mobile_phone']); ?></td>
                 <td><?php echo remove_junk($supplier['email']); ?></td>
                 <td><?php echo remove_junk($supplier['address']); ?></td>
-                <td class="text-center">
-                </td>
+                <!-- Kolom Actions dihapus -->
               </tr>
             <?php endforeach; ?>
             <?php if (count($all_suppliers) === 0): ?>
               <tr>
-                <td colspan="6" class="text-center">No supplier data found.</td>
+                <td colspan="5" class="text-center">No supplier data found.</td>
               </tr>
             <?php endif; ?>
           </tbody>
         </table>
       </div>
     </div>
-  </div>`
+  </div>
 </div>
 
 <?php include_once('layouts/footer.php'); ?>

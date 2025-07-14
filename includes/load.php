@@ -23,18 +23,21 @@ require_once(LIB_PATH_INC.'sql.php');
 
 function find_stock_in() {
   global $db;
-  $sql  = "SELECT stock_in.id, stock_in.quantity, stock_in.date_received, ";
-  $sql .= "products.name AS product_name, suppliers.supplier_name ";
-  $sql .= "FROM stock_in ";
-  $sql .= "LEFT JOIN products ON stock_in.product_id = products.id ";
-  $sql .= "LEFT JOIN suppliers ON stock_in.supplier_id = suppliers.id ";
-  $sql .= "ORDER BY stock_in.date_received DESC";
+  $sql  = "SELECT si.id, si.quantity, si.date_received, ";
+  $sql .= "si.is_quantity_ok, si.is_quality_ok, si.validation_note, ";
+  $sql .= "p.name AS product_name, p.stock AS current_stock, ";
+  $sql .= "s.supplier_name, s.mobile_phone ";
+  $sql .= "FROM stock_in si ";
+  $sql .= "LEFT JOIN products p ON si.product_id = p.id ";
+  $sql .= "LEFT JOIN suppliers s ON si.supplier_id = s.id ";
+  $sql .= "ORDER BY si.date_received DESC";
+
   return find_by_sql($sql);
 }
 
 function find_stock_out() {
   global $db;
-  $sql  = "SELECT so.id, p.name AS product_name, c.customer_name, so.quantity, so.date_received ";
+  $sql  = "SELECT so.*, p.name AS product_name, p.stock, c.customer_name, c.address ";
   $sql .= "FROM stock_out so ";
   $sql .= "LEFT JOIN products p ON so.product_id = p.id ";
   $sql .= "LEFT JOIN customers c ON so.customer_id = c.id ";

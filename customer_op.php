@@ -26,7 +26,6 @@
               <th>Phone</th>
               <th>Email</th>
               <th>Address</th>
-              <th class="text-center" style="width: 100px;">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +36,6 @@
                 <td><?php echo remove_junk($customer['mobile_phone']); ?></td>
                 <td><?php echo remove_junk($customer['email']); ?></td>
                 <td><?php echo remove_junk($customer['address']); ?></td>
-                <td class="text-center">
                 </td>
               </tr>
             <?php endforeach; ?>

@@ -1,19 +1,30 @@
 <?php
   $page_title = 'Add Supplier';
   require_once('includes/load.php');
-  // Check what level user has permission to view this page
   page_require_level(1);
 
   if (isset($_POST['add_supplier'])) {
     $req_fields = array('supplier_name', 'mobile_phone', 'email', 'address');
     validate_fields($req_fields);
 
-    if (empty($errors)) {
-      $name    = remove_junk($db->escape($_POST['supplier_name']));
-      $phone   = remove_junk($db->escape($_POST['mobile_phone']));
-      $email   = remove_junk($db->escape($_POST['email']));
-      $address = remove_junk($db->escape($_POST['address']));
+    $errors = array(); // reset errors
 
+    $name    = remove_junk($db->escape($_POST['supplier_name']));
+    $phone   = remove_junk($db->escape($_POST['mobile_phone']));
+    $email   = remove_junk($db->escape($_POST['email']));
+    $address = remove_junk($db->escape($_POST['address']));
+
+    // ✅ Validasi nomor telepon: hanya angka dan maksimal 15 digit
+    if (!preg_match('/^\+?[0-9]{10,15}$/', $phone)) {
+      $errors[] = "Nomor telepon tidak valid! Gunakan angka (maks. 15 digit). Contoh: +628123456789";
+    }
+
+    // ✅ Validasi email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $errors[] = "Format email tidak valid!";
+    }
+
+    if (empty($errors)) {
       $query  = "INSERT INTO suppliers (supplier_name, mobile_phone, email, address)";
       $query .= " VALUES ('{$name}', '{$phone}', '{$email}', '{$address}')";
       if ($db->query($query)) {
@@ -24,11 +35,12 @@
         redirect('add_supplier.php', false);
       }
     } else {
-      $session->msg("d", $errors);
+      $session->msg("d", implode("<br>", $errors)); // tampilkan semua error
       redirect('add_supplier.php', false);
     }
   }
 ?>
+
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
   <div class="col-md-12">
@@ -52,15 +64,18 @@
           </div>
           <div class="form-group">
             <label for="mobile_phone">Mobile Phone</label>
-            <input type="text" class="form-control" name="mobile_phone" placeholder="Phone number">
+            <input type="text" class="form-control" name="mobile_phone" maxlength="15" 
+              pattern="^\+?[0-9]{10,15}$" 
+              title="Nomor telepon hanya angka dan maksimal 15 digit. Contoh: +628123456789" 
+              placeholder="Contoh: +628123456789" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Supplier email">
+            <input type="email" class="form-control" name="email" placeholder="Supplier email" required>
           </div>
           <div class="form-group">
             <label for="address">Address</label>
-            <textarea name="address" class="form-control" placeholder="Full address"></textarea>
+            <textarea name="address" class="form-control" placeholder="Full address" required></textarea>
           </div>
           <button type="submit" name="add_supplier" class="btn btn-primary">Add Supplier</button>
         </form>

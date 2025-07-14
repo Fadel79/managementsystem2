@@ -4,10 +4,9 @@
   page_require_level(1);
 
   $all_categories = find_all('categories');
-  $all_media = find_all('media');
 
   if (isset($_POST['add_product'])) {
-    $req_fields = array('name', 'description', 'categorie_id', 'selling_price', 'stock', 'media_id');
+    $req_fields = array('name', 'description', 'categorie_id', 'selling_price', 'stock');
     validate_fields($req_fields);
 
     if (empty($errors)) {
@@ -16,10 +15,17 @@
       $category_id  = (int)$db->escape($_POST['categorie_id']);
       $selling_price = (float)$db->escape($_POST['selling_price']);
       $stock        = (int)$db->escape($_POST['stock']);
-      $media_id     = (int)$db->escape($_POST['media_id']);
+      
+      // Upload gambar
+      $image_name = '';
+      if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $file_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $image_name = uniqid() . "." . $file_ext;
+        move_uploaded_file($_FILES['image']['tmp_name'], "uploads/products/" . $image_name);
+      }
 
-      $query  = "INSERT INTO products (name, description, categorie_id, selling_price, stock, media_id, date) ";
-      $query .= "VALUES ('{$name}', '{$description}', {$category_id}, '{$selling_price}', {$stock}, {$media_id}, NOW())";
+      $query  = "INSERT INTO products (name, description, categorie_id, selling_price, stock, image, date) ";
+      $query .= "VALUES ('{$name}', '{$description}', {$category_id}, '{$selling_price}', {$stock}, '{$image_name}', NOW())";
 
       if ($db->query($query)) {
         $session->msg('s', "Product added successfully.");
@@ -43,7 +49,7 @@
     <div class="panel panel-default">
       <div class="panel-heading"><strong>Add New Product</strong></div>
       <div class="panel-body">
-        <form method="post" action="add_product.php">
+        <form method="post" action="add_product.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Product Name</label>
             <input type="text" name="name" class="form-control" required>
@@ -77,15 +83,8 @@
           </div>
 
           <div class="form-group">
-            <label for="media_id">Image</label>
-            <select name="media_id" class="form-control" required>
-              <option value="">Select image</option>
-              <?php foreach ($all_media as $media): ?>
-                <option value="<?php echo (int)$media['id']; ?>">
-                  <?php echo remove_junk($media['file_name']); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+            <label for="image">Upload Image</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
           </div>
 
           <button type="submit" name="add_product" class="btn btn-primary">Add Product</button>

@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <a href="admin.php">
+    <a href="op.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>Dashboard</span>
     </a>
@@ -12,7 +12,7 @@
     </a>
   </li>
     <li>
-    <a href="supplier.php" class="submenu-toggle">
+    <a href="supplier_op.php" class="submenu-toggle">
       <i class="glyphicon glyphicon-user"></i>
        <span>Supplier</span>
       </a>

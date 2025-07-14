@@ -4,16 +4,15 @@
   page_require_level(2);
 
   // Fungsi untuk mengambil semua produk beserta kategori dan gambar
-  function find_all_products_with_category() {
-    global $db;
-    $sql  = "SELECT p.id, p.name, p.description, p.selling_price, p.stock, ";
-    $sql .= "c.name AS category_name, m.file_name AS image ";
-    $sql .= "FROM products p ";
-    $sql .= "LEFT JOIN categories c ON p.categorie_id = c.id ";
-    $sql .= "LEFT JOIN media m ON p.media_id = m.id ";
-    $sql .= "ORDER BY p.id DESC";
-    return find_by_sql($sql);
-  }
+function find_all_products_with_category() {
+  global $db;
+  $sql  = "SELECT p.id, p.name, p.description, p.selling_price, p.stock, ";
+  $sql .= "c.name AS category_name, p.image "; // Ubah m.file_name => p.image
+  $sql .= "FROM products p ";
+  $sql .= "LEFT JOIN categories c ON p.categorie_id = c.id ";
+  $sql .= "ORDER BY p.id DESC";
+  return find_by_sql($sql);
+}
 
   $products = find_all_products_with_category();
 
@@ -46,7 +45,6 @@
               <th>Description</th>
               <th>Stock</th>
               <th>Image</th>
-              <th class="text-center" style="width: 100px;">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -64,8 +62,6 @@
                   <?php else: ?>
                     <img src="uploads/products/no_image.png" class="img-avatar img-circle" width="50">
                   <?php endif; ?>
-                </td>
-                <td class="text-center">
                 </td>
               </tr>
             <?php endforeach; ?>

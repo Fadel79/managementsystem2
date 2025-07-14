@@ -1,5 +1,4 @@
 <?php
-// add_stock_in.php
 $page_title = 'Add Stock In';
 require_once('includes/load.php');
 page_require_level(1);
@@ -12,19 +11,26 @@ if (isset($_POST['add_stock_in'])) {
   validate_fields($req_fields);
 
   if (empty($errors)) {
-    $product_id    = (int)$_POST['product_id'];
-    $supplier_id   = (int)$_POST['supplier_id'];
-    $quantity      = (int)$_POST['quantity'];
-    $date_received = $db->escape($_POST['date_received']); // format YYYY-MM-DD
+    $product_id      = (int)$_POST['product_id'];
+    $supplier_id     = (int)$_POST['supplier_id'];
+    $quantity        = (int)$_POST['quantity'];
+    $date_received   = $db->escape($_POST['date_received']);
+    $is_quantity_ok  = isset($_POST['is_quantity_ok']) ? 1 : 0;
+    $is_quality_ok   = isset($_POST['is_quality_ok']) ? 1 : 0;
+    $validation_note = $db->escape($_POST['validation_note']);
 
-    $query  = "INSERT INTO stock_in (product_id, supplier_id, quantity, date_received) ";
-    $query .= "VALUES ({$product_id}, {$supplier_id}, {$quantity}, '{$date_received}')";
+    $query  = "INSERT INTO stock_in (product_id, supplier_id, quantity, date_received, is_quantity_ok, is_quality_ok, validation_note) ";
+    $query .= "VALUES ({$product_id}, {$supplier_id}, {$quantity}, '{$date_received}', {$is_quantity_ok}, {$is_quality_ok}, '{$validation_note}')";
 
     if ($db->query($query)) {
-      $session->msg('s', "Stock In added.");
+      // Tambahkan stok ke produk
+      $update_stock = "UPDATE products SET stock = stock + {$quantity} WHERE id = {$product_id}";
+      $db->query($update_stock);
+
+      $session->msg('s', "Stock In added dan stok produk diperbarui.");
       redirect('stock_in.php', false);
     } else {
-      $session->msg('d', 'Failed to add.');
+      $session->msg('d', 'Gagal menambahkan Stock In.');
       redirect('add_stock_in.php', false);
     }
   } else {
@@ -44,9 +50,10 @@ if (isset($_POST['add_stock_in'])) {
           <div class="form-group">
             <label for="product_id">Product</label>
             <select name="product_id" class="form-control" required>
+              <option value="">Select a product</option>
               <?php foreach ($all_products as $product): ?>
                 <option value="<?php echo $product['id']; ?>">
-                  <?php echo remove_junk($product['name']); ?>
+                  <?php echo remove_junk($product['name']); ?> (Stock: <?php echo (int)$product['stock']; ?>)
                 </option>
               <?php endforeach; ?>
             </select>
@@ -55,6 +62,7 @@ if (isset($_POST['add_stock_in'])) {
           <div class="form-group">
             <label for="supplier_id">Supplier</label>
             <select name="supplier_id" class="form-control" required>
+              <option value="">Select a supplier</option>
               <?php foreach ($all_suppliers as $supplier): ?>
                 <option value="<?php echo $supplier['id']; ?>">
                   <?php echo remove_junk($supplier['supplier_name']); ?>
@@ -71,6 +79,16 @@ if (isset($_POST['add_stock_in'])) {
           <div class="form-group">
             <label for="date_received">Date Received</label>
             <input type="date" name="date_received" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label><input type="checkbox" name="is_quantity_ok" value="1"> Quantity OK</label><br>
+            <label><input type="checkbox" name="is_quality_ok" value="1"> Quality OK</label>
+          </div>
+
+          <div class="form-group">
+            <label for="validation_note">Validation Note</label>
+            <textarea name="validation_note" class="form-control" rows="3" placeholder="Optional notes if quantity or quality not OK..."></textarea>
           </div>
 
           <button type="submit" name="add_stock_in" class="btn btn-primary">Add</button>

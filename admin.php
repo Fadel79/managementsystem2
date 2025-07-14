@@ -5,11 +5,12 @@
 
   $c_categorie     = count_by_id('categories');
   $c_product       = count_by_id('products');
-  $c_sale          = count_by_id('sales');
   $c_user          = count_by_id('users');
-  $products_sold   = find_higest_saleing_product('10');
+  $c_supplier      = count_by_id('suppliers');
+  $c_customer      = count_by_id('customers');
+  $c_stock_in      = count_by_id('stock_in');
+  $c_stock_out     = count_by_id('stock_out');
   $recent_products = find_recent_product_added('5');
-  $recent_sales    = find_recent_sale_added('5');
 
   // Ambil 5 stok terendah
   $low_stock_query = $db->query("SELECT name, stock FROM products ORDER BY stock ASC LIMIT 5");
@@ -19,6 +20,20 @@
       'label' => $row['name'],
       'y' => (int)$row['stock']
     ];
+  }
+
+  // Ambil 5 data stock_in terbaru
+  $recent_stock_in = $db->query("SELECT stock_in.*, products.name AS product_name, stock_in.date_received FROM stock_in JOIN products ON stock_in.product_id = products.id ORDER BY stock_in.date_received DESC LIMIT 5");
+  $recent_stock_ins = [];
+  while ($row = $db->fetch_assoc($recent_stock_in)) {
+    $recent_stock_ins[] = $row;
+  }
+
+  // Ambil 5 data stock_out terbaru
+  $recent_stock_out = $db->query("SELECT stock_out.*, products.name AS product_name, stock_out.date_received FROM stock_out JOIN products ON stock_out.product_id = products.id ORDER BY stock_out.date_received DESC LIMIT 5");
+  $recent_stock_outs = [];
+  while ($row = $db->fetch_assoc($recent_stock_out)) {
+    $recent_stock_outs[] = $row;
   }
 ?>
 
@@ -31,47 +46,32 @@
 </div>
 
 <div class="row">
-  <a href="users.php" style="color:black;">
-    <div class="col-md-3">
-      <div class="panel panel-box clearfix">
-        <div class="panel-icon pull-left bg-secondary1">
-          <i class="glyphicon glyphicon-user"></i>
-        </div>
-        <div class="panel-value pull-right">
-          <h2 class="margin-top"><?php echo $c_user['total']; ?></h2>
-          <p class="text-muted">Users</p>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <a href="categorie.php" style="color:black;">
-    <div class="col-md-3">
-      <div class="panel panel-box clearfix">
-        <div class="panel-icon pull-left bg-red">
-          <i class="glyphicon glyphicon-th-large"></i>
-        </div>
-        <div class="panel-value pull-right">
-          <h2 class="margin-top"><?php echo $c_categorie['total']; ?></h2>
-          <p class="text-muted">Categories</p>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <a href="product.php" style="color:black;">
-    <div class="col-md-3">
-      <div class="panel panel-box clearfix">
-        <div class="panel-icon pull-left bg-blue2">
-          <i class="glyphicon glyphicon-shopping-cart"></i>
-        </div>
-        <div class="panel-value pull-right">
-          <h2 class="margin-top"><?php echo $c_product['total']; ?></h2>
-          <p class="text-muted">Products</p>
+  <?php
+    $panels = [
+      ['href' => 'users.php', 'icon' => 'glyphicon-user', 'count' => $c_user['total'], 'label' => 'Users', 'bg' => 'bg-secondary1'],
+      ['href' => 'categorie.php', 'icon' => 'glyphicon-th-large', 'count' => $c_categorie['total'], 'label' => 'Categories', 'bg' => 'bg-red'],
+      ['href' => 'product.php', 'icon' => 'glyphicon-shopping-cart', 'count' => $c_product['total'], 'label' => 'Products', 'bg' => 'bg-blue2'],
+      ['href' => 'supplier.php', 'icon' => 'glyphicon-send', 'count' => $c_supplier['total'], 'label' => 'Suppliers', 'bg' => 'bg-green'],
+      ['href' => 'customer.php', 'icon' => 'glyphicon-user', 'count' => $c_customer['total'], 'label' => 'Customers', 'bg' => 'bg-yellow'],
+      ['href' => 'stock_in.php', 'icon' => 'glyphicon-log-in', 'count' => $c_stock_in['total'], 'label' => 'Stock In', 'bg' => 'bg-secondary1'],
+      ['href' => 'stock_out.php', 'icon' => 'glyphicon-log-out', 'count' => $c_stock_out['total'], 'label' => 'Stock Out', 'bg' => 'bg-blue2'],
+    ];
+  ?>
+  <?php foreach ($panels as $panel): ?>
+    <a href="<?php echo $panel['href']; ?>" style="color:black;">
+      <div class="col-md-3">
+        <div class="panel panel-box clearfix">
+          <div class="panel-icon pull-left <?php echo $panel['bg']; ?>">
+            <i class="glyphicon <?php echo $panel['icon']; ?>"></i>
+          </div>
+          <div class="panel-value pull-right">
+            <h2 class="margin-top"><?php echo $panel['count']; ?></h2>
+            <p class="text-muted"><?php echo $panel['label']; ?></p>
+          </div>
         </div>
       </div>
-    </div>
-  </a>
+    </a>
+  <?php endforeach; ?>
 </div>
 
 <div class="row">
@@ -87,29 +87,55 @@
     </div>
   </div>
 
-  <!-- Latest Sales -->
+<!-- Recently Added Products -->
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
+    </div>
+    <div class="panel-body">
+      <div class="list-group" style="max-height: 350px; overflow-y: auto;">
+        <?php foreach ($recent_products as $recent_product): ?>
+          <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
+            <h4 class="list-group-item-heading">
+              <?php if (empty($recent_product['image']) || !file_exists("uploads/products/" . $recent_product['image'])): ?>
+              <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="No image">
+              <?php else: ?>
+              <img class="img-avatar img-circle" src="uploads/products/<?php echo remove_junk($recent_product['image']); ?>" alt="">
+              <?php endif; ?>
+              <?php echo remove_junk(first_character($recent_product['name'])); ?>
+              <span class="label label-warning pull-right">Rp<?php echo number_format((float)$recent_product['selling_price'], 0, ',', '.'); ?></span>
+            </h4>
+            <span class="list-group-item-text pull-right"><?php echo remove_junk(first_character($recent_product['categorie'])); ?></span>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Latest Stock-In -->
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <strong><span class="glyphicon glyphicon-th"></span> LATEST SALES</strong>
+        <strong><span class="glyphicon glyphicon-log-in"></span> Latest Stock-In</strong>
       </div>
       <div class="panel-body">
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
-              <th>Product Name</th>
+              <th>Product</th>
+              <th>Qty</th>
               <th>Date</th>
-              <th>Total Sale</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($recent_sales as $recent_sale): ?>
+            <?php foreach ($recent_stock_ins as $stock): ?>
               <tr>
-                <td class="text-center"><?php echo count_id(); ?></td>
-                <td><a href="edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>"><?php echo remove_junk(first_character($recent_sale['name'])); ?></a></td>
-                <td><?php echo remove_junk(ucfirst($recent_sale['date'])); ?></td>
-                <td>$<?php echo remove_junk(first_character($recent_sale['price'])); ?></td>
+                <td><?php echo remove_junk($stock['product_name']); ?></td>
+                <td><?php echo (int)$stock['quantity']; ?></td>
+                <td><?php echo date("d-m-Y", strtotime($stock['date_received'])); ?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -117,32 +143,32 @@
       </div>
     </div>
   </div>
-</div>
 
-<!-- Recent Products -->
-<div class="row">
-  <div class="col-md-12">
+  <!-- Latest Stock-Out -->
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
+        <strong><span class="glyphicon glyphicon-log-out"></span> Latest Stock-Out</strong>
       </div>
       <div class="panel-body">
-        <div class="list-group">
-          <?php foreach ($recent_products as $recent_product): ?>
-            <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
-              <h4 class="list-group-item-heading">
-                <?php if ($recent_product['media_id'] === '0'): ?>
-                  <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="">
-                <?php else: ?>
-                  <img class="img-avatar img-circle" src="uploads/products/<?php echo $recent_product['image']; ?>" alt="">
-                <?php endif; ?>
-                <?php echo remove_junk(first_character($recent_product['name'])); ?>
-                <span class="label label-warning pull-right">$<?php echo (int)$recent_product['selling_price']; ?></span>
-              </h4>
-              <span class="list-group-item-text pull-right"><?php echo remove_junk(first_character($recent_product['categorie'])); ?></span>
-            </a>
-          <?php endforeach; ?>
-        </div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($recent_stock_outs as $stock): ?>
+              <tr>
+                <td><?php echo remove_junk($stock['product_name']); ?></td>
+                <td><?php echo (int)$stock['quantity']; ?></td>
+                <td><?php echo date("d-m-Y", strtotime($stock['date_received'])); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

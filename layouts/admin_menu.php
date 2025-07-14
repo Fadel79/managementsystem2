@@ -27,12 +27,6 @@
       <span>Products</span>
     </a>
   </li>
-  <li>
-    <a href="media.php" >
-      <i class="glyphicon glyphicon-picture"></i>
-      <span>Media Files</span>
-    </a>
-  </li>
     <li>
     <a href="supplier.php" class="submenu-toggle">
       <i class="glyphicon glyphicon-user"></i>
