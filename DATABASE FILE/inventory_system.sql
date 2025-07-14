@@ -173,7 +173,7 @@ INSERT INTO `user_groups` (`id`, `group_name`, `group_level`, `group_status`) VA
 --
 -- Indexes for dumped tables
 
---- supplier customor
+-- supplier customor
 -- --------------------------------------------------------
 -- Table structure for table `suppliers`
 -- --------------------------------------------------------
