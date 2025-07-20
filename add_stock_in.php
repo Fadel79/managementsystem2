@@ -81,16 +81,6 @@ if (isset($_POST['add_stock_in'])) {
             <input type="date" name="date_received" class="form-control" required>
           </div>
 
-          <div class="form-group">
-            <label><input type="checkbox" name="is_quantity_ok" value="1"> Quantity OK</label><br>
-            <label><input type="checkbox" name="is_quality_ok" value="1"> Quality OK</label>
-          </div>
-
-          <div class="form-group">
-            <label for="validation_note">Validation Note</label>
-            <textarea name="validation_note" class="form-control" rows="3" placeholder="Optional notes if quantity or quality not OK..."></textarea>
-          </div>
-
           <button type="submit" name="add_stock_in" class="btn btn-primary">Add</button>
         </form>
       </div>

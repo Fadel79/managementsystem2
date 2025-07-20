@@ -1,11 +1,10 @@
 <?php
   $page_title = 'All Supplier';
   require_once('includes/load.php');
-  // Cek level user untuk akses halaman
-  page_require_level(2);
+  page_require_level(1);
 
-  // Ambil semua data supplier
-  $all_suppliers = find_all('suppliers'); // Pastikan fungsi ini tersedia di load.php
+  // Ambil semua data supplier dari tabel 'suppliers'
+  $all_suppliers = find_all('suppliers');
 
   include_once('layouts/header.php');
 ?>
@@ -15,6 +14,7 @@
      <?php echo display_msg($msg); ?>
    </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -26,10 +26,10 @@
         <a href="add_supplier.php" class="btn btn-info pull-right btn-sm">Add New Supplier</a>
       </div>
       <div class="panel-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
+              <th class="text-center" style="width: 50px;">No</th>
               <th>Supplier Name</th>
               <th>Phone Number</th>
               <th>Email</th>

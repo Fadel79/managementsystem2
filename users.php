@@ -19,7 +19,7 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
-          <span class="glyphicon glyphicon-th"></span>
+          <span class="glyphicon glyphicon-user"></span>
           <span>Users</span>
        </strong>
          <a href="add_user.php" class="btn btn-info pull-right">Add New User</a>
@@ -28,7 +28,7 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th class="text-center" style="width: 50px;">#</th>
+            <th class="text-center" style="width: 50px;">No</th>
             <th>Name </th>
             <th>Username</th>
             <th class="text-center" style="width: 15%;">User Role</th>

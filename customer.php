@@ -1,7 +1,7 @@
 <?php
   $page_title = 'All Customers';
   require_once('includes/load.php');
-  page_require_level(2);
+  page_require_level(1);
 
   $all_customers = find_all('customers');
 
@@ -22,7 +22,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
+              <th class="text-center" style="width: 50px;">No</th>
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>

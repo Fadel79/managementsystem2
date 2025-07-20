@@ -25,7 +25,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
+              <th class="text-center" style="width: 50px;">No</th>
               <th>Supplier Name</th>
               <th>Phone Number</th>
               <th>Email</th>

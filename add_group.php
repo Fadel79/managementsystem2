@@ -11,10 +11,10 @@
    validate_fields($req_fields);
 
    if(find_by_groupName($_POST['group-name']) === false ){
-     $session->msg('d','<b>Sorry!</b> Entered Group Name already in database!');
+     $session->msg('d','<b>Sorry!</b> Entered Categorie Name already in database!');
      redirect('add_group.php', false);
    }elseif(find_by_groupLevel($_POST['group-level']) === false) {
-     $session->msg('d','<b>Sorry!</b> Entered Group Level already in database!');
+     $session->msg('d','<b>Sorry!</b> Entered Categorie Level already in database!');
      redirect('add_group.php', false);
    }
    if(empty($errors)){
@@ -29,11 +29,11 @@
         $query .=")";
         if($db->query($query)){
           //sucess
-          $session->msg('s',"Group has been creted! ");
+          $session->msg('s',"Categorie has been creted! ");
           redirect('add_group.php', false);
         } else {
           //failed
-          $session->msg('d',' Sorry failed to create Group!');
+          $session->msg('d',' Sorry failed to create Categorie!');
           redirect('add_group.php', false);
         }
    } else {
@@ -45,27 +45,27 @@
 <?php include_once('layouts/header.php'); ?>
 <div class="login-page">
     <div class="text-center">
-       <h3>Add new user Group</h3>
+       <h3>Add new user Categorie</h3>
      </div>
      <?php echo display_msg($msg); ?>
       <form method="post" action="add_group.php" class="clearfix">
         <div class="form-group">
-              <label for="name" class="control-label">Group Name</label>
+              <label for="name" class="control-label">Categorie Name</label>
               <input type="name" class="form-control" name="group-name">
         </div>
         <div class="form-group">
-              <label for="level" class="control-label">Group Level</label>
+              <label for="level" class="control-label">Categorie Level</label>
               <input type="number" class="form-control" name="group-level">
         </div>
         <div class="form-group">
           <label for="status">Status</label>
             <select class="form-control" name="status">
               <option value="1">Active</option>
-              <option value="0">Deactive</option>
+              <option value="0">Non active</option>
             </select>
         </div>
         <div class="form-group clearfix">
-                <button type="submit" name="add" class="btn btn-info">Update</button>
+                <button type="submit" name="add" class="btn btn-info">Add</button>
         </div>
     </form>
 </div>

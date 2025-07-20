@@ -1,16 +1,23 @@
 <?php
-  $page_title = 'Admin Home Page';
+  $page_title = 'Operator Home Page';
   require_once('includes/load.php');
   page_require_level(2);
 
-  $c_categorie     = count_by_id('categories');
   $c_product       = count_by_id('products');
-  $c_user          = count_by_id('users');
   $c_supplier      = count_by_id('suppliers');
   $c_customer      = count_by_id('customers');
-  $c_stock_in      = count_by_id('stock_in');
-  $c_stock_out     = count_by_id('stock_out');
   $recent_products = find_recent_product_added('5');
+
+  // Hitung jumlah stock_in hari ini
+  $tanggal_hari_ini = date('Y-m-d');
+  $sql_in = "SELECT COUNT(*) AS total FROM stock_in WHERE DATE(date_received) = '{$tanggal_hari_ini}'";
+  $result_in = $db->fetch_assoc($db->query($sql_in));
+  $c_stock_in = ['total' => $result_in['total']];
+
+  // Hitung jumlah stock_out hari ini
+  $sql_out = "SELECT COUNT(*) AS total FROM stock_out WHERE DATE(date_received) = '{$tanggal_hari_ini}'";
+  $result_out = $db->fetch_assoc($db->query($sql_out));
+  $c_stock_out = ['total' => $result_out['total']];
 
   // Ambil 5 stok terendah
   $low_stock_query = $db->query("SELECT name, stock FROM products ORDER BY stock ASC LIMIT 5");
@@ -48,8 +55,6 @@
 <div class="row">
   <?php
     $panels = [
-      ['href' => 'users.php', 'icon' => 'glyphicon-user', 'count' => $c_user['total'], 'label' => 'Users', 'bg' => 'bg-secondary1'],
-      ['href' => 'categorie.php', 'icon' => 'glyphicon-th-large', 'count' => $c_categorie['total'], 'label' => 'Categories', 'bg' => 'bg-red'],
       ['href' => 'product.php', 'icon' => 'glyphicon-shopping-cart', 'count' => $c_product['total'], 'label' => 'Products', 'bg' => 'bg-blue2'],
       ['href' => 'supplier.php', 'icon' => 'glyphicon-send', 'count' => $c_supplier['total'], 'label' => 'Suppliers', 'bg' => 'bg-green'],
       ['href' => 'customer.php', 'icon' => 'glyphicon-user', 'count' => $c_customer['total'], 'label' => 'Customers', 'bg' => 'bg-yellow'],
@@ -79,7 +84,7 @@
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <strong><span class="glyphicon glyphicon-stats"></span> Stok Terendah (Top 5)</strong>
+        <strong><span class="glyphicon glyphicon-stats"></span> Lowest Stock</strong>
       </div>
       <div class="panel-body">
         <div id="stockChart" style="height: 300px; width: 100%;"></div>
@@ -181,8 +186,8 @@
     var chart = new CanvasJS.Chart("stockChart", {
       animationEnabled: true,
       theme: "light2",
-      title: { text: "Top 5 Produk dengan Stok Terendah" },
-      axisY: { title: "Jumlah Stok" },
+      title: { text: "5 Products with the Lowest Stock" },
+      axisY: { title: "Stock Amount" },
       data: [{
         type: "column",
         dataPoints: <?php echo json_encode($low_stock_data, JSON_NUMERIC_CHECK); ?>

@@ -26,7 +26,7 @@
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-credit-card"></i>
-       <span>Report</span>
+       <span>Validation</span>
       </a>
       <ul class="nav submenu">
          <li><a href="stock_in_op.php">Stock_in</a> </li>

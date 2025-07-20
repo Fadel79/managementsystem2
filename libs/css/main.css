@@ -219,3 +219,15 @@ h4 .label {
 .text-muted {
   color: #7f8c8d !important;
 }
+
+.img-size-2 {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;       /* Agar gambar memenuhi kotak tanpa distorsi */
+  border-radius: 50%;      /* Tetap bulat */
+  border: 3px solid #ccc;  /* Tambahan opsional agar lebih estetik */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Tambahan efek bayangan */
+  display: block;
+  margin: 0 auto;
+}
+

@@ -16,18 +16,18 @@
     <div class="panel panel-default">
     <div class="panel-heading clearfix">
       <strong>
-        <span class="glyphicon glyphicon-th"></span>
-        <span>Groups</span>
+        <span class="glyphicon glyphicon-user"></span>
+        <span>Categorie User</span>
      </strong>
-       <a href="add_group.php" class="btn btn-info pull-right btn-sm"> Add New Group</a>
+       <a href="add_group.php" class="btn btn-info pull-right btn-sm"> Add New Categorie</a>
     </div>
      <div class="panel-body">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center" style="width: 50px;">#</th>
-            <th>Group Name</th>
-            <th class="text-center" style="width: 20%;">Group Level</th>
+            <th class="text-center" style="width: 50px;">No</th>
+            <th>Categorie Name</th>
+            <th class="text-center" style="width: 20%;">Categorie Level</th>
             <th class="text-center" style="width: 15%;">Status</th>
             <th class="text-center" style="width: 100px;">Actions</th>
           </tr>

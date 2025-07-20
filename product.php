@@ -39,7 +39,7 @@ function find_all_products_with_category() {
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
+              <th class="text-center" style="width: 50px;">No</th>
               <th>Product Name</th>
               <th>Category</th>
               <th>Selling Price</th>

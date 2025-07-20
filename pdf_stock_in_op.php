@@ -1,6 +1,6 @@
 <?php
 require_once('includes/load.php');
-require_once('tcpdf/tcpdf.php'); // Pastikan path ini sesuai lokasi TCPDF-mu
+require_once('tcpdf/tcpdf.php');
 
 page_require_level(2);
 
@@ -10,36 +10,45 @@ $all_stock_in = find_stock_in();
 // Inisialisasi TCPDF
 $pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-// Pengaturan PDF
+// Pengaturan Umum
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Inventory System');
 $pdf->SetTitle('Laporan Stock In');
-$pdf->SetHeaderData('', 0, 'Laporan Barang Masuk (Stock In)', 'Tanggal: '.date('d-m-Y'));
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', 12));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 10));
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-$pdf->SetMargins(10, 25, 10);
-$pdf->SetHeaderMargin(10);
-$pdf->SetFooterMargin(10);
+
+// Nonaktifkan header default bawaan TCPDF
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+
+// Margin dan font
+$pdf->SetMargins(10, 15, 10); // margin atas dikecilkan karena kita pakai header manual
 $pdf->SetAutoPageBreak(TRUE, 15);
 $pdf->SetFont('dejavusans', '', 9);
 
 // Tambah halaman
 $pdf->AddPage();
 
-// Buat HTML untuk tabel
+// ===== HEADER MANUAL (ditengah) =====
+$pdf->SetFont('dejavusans', 'B', 14);
+$pdf->Cell(0, 10, 'Laporan Barang Masuk (Stock In)', 0, 1, 'C');
+
+$pdf->SetFont('dejavusans', '', 11);
+$pdf->Cell(0, 7, 'Tanggal: ' . date('d-m-Y'), 0, 1, 'C');
+
+$pdf->Ln(5); // spasi antara header dan tabel
+
+// ===== TABEL HTML =====
 $html = '<table border="1" cellpadding="4">
   <thead>
-    <tr style="background-color:#f2f2f2;">
-      <th width="78.5" align="center">#</th>
+    <tr style="background-color:#f2f2f2; font-weight:bold; text-align:center;">
+      <th width="78.5">No</th>
       <th width="78.5">Product</th>
       <th width="78.5">Supplier</th>
       <th width="78.5">Phone</th>
-      <th width="78.5" align="center">Qty</th>
-      <th width="78.5" align="center">Stock</th>
+      <th width="78.5">Qty</th>
+      <th width="78.5">Stock</th>
       <th width="78.5">Date</th>
-      <th width="78.5" align="center">Qty OK</th>
-      <th width="78.5" align="center">Qlt OK</th>
+      <th width="78.5">Qty OK</th>
+      <th width="78.5">Qlt OK</th>
       <th width="78.5">Note</th>
     </tr>
   </thead>
@@ -73,5 +82,5 @@ $pdf->writeHTML($html, true, false, true, false, '');
 // Hapus buffer output yang tertinggal
 if (ob_get_length()) ob_end_clean();
 
-// Outputkan PDF
+// Outputkan PDF ke browser
 $pdf->Output('laporan_stock_in.pdf', 'I');
