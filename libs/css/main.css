@@ -231,3 +231,57 @@ h4 .label {
   margin: 0 auto;
 }
 
+/* ======= Tampilan Login Rapi ======= */
+.login-page {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc; /* ← ini border-nya */
+}
+
+.login-page .form-group {
+  margin-bottom: 20px;
+}
+
+.login-page .form-control {
+  height: 44px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.login-page .btn {
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 4px !important;
+}
+
+.flex-panel-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.flex-panel-container .panel {
+  flex : 1 1 19%;
+  max-width: 19%;
+  text-decoration: none;
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+.panel-body h4,
+.panel-body p,
+.panel-body i {
+  color: white !important; /* pastikan kontras */
+}
+
