@@ -14,7 +14,9 @@ if (isset($_POST['add_stock_in'])) {
     $product_id      = (int)$_POST['product_id'];
     $supplier_id     = (int)$_POST['supplier_id'];
     $quantity        = (int)$_POST['quantity'];
-    $date_received   = $db->escape($_POST['date_received']);
+    $date_input = $_POST['date_received'];
+    $formatted_date = date('Y-m-d H:i:s', strtotime($date_input));
+    $date_received = $db->escape($formatted_date);
     $is_quantity_ok  = isset($_POST['is_quantity_ok']) ? 1 : 0;
     $is_quality_ok   = isset($_POST['is_quality_ok']) ? 1 : 0;
     $validation_note = $db->escape($_POST['validation_note']);
@@ -78,7 +80,7 @@ if (isset($_POST['add_stock_in'])) {
 
           <div class="form-group">
             <label for="date_received">Date Received</label>
-            <input type="date" name="date_received" class="form-control" required>
+            <input type="datetime-local" name="date_received" class="form-control" required>
           </div>
 
           <button type="submit" name="add_stock_in" class="btn btn-primary">Add</button>

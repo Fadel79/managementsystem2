@@ -105,8 +105,14 @@ a {
   background-color: #e74c3c !important;
 }
 
+/* DIUBAH: Ungu diganti menjadi biru violet cerah */
 .bg-purple {
-  background-color: #9b59b6 !important;
+  background-color: #6c5ce7 !important; /* ungu biru cerah dari Flat UI / Material Design */
+}
+
+/* DIUBAH: Merah tua diganti menjadi oranye kemerahan */
+.bg-danger {
+  background-color: #e67e22 !important; /* oranye gelap, masih menunjukkan ‘peringatan’ */
 }
 
 .bg-green {
@@ -115,10 +121,6 @@ a {
 
 .bg-yellow {
   background-color: #f1c40f !important;
-}
-
-.bg-danger {
-  background-color: #c0392b !important;
 }
 
 /* ================= HEADER ================= */
@@ -277,11 +279,5 @@ h4 .label {
 
 .panel-body {
   padding: 20px;
-}
-
-.panel-body h4,
-.panel-body p,
-.panel-body i {
-  color: white !important; /* pastikan kontras */
 }
 

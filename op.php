@@ -3,7 +3,9 @@
   require_once('includes/load.php');
   page_require_level(2);
 
+  $c_categorie     = count_by_id('categories');
   $c_product       = count_by_id('products');
+  $c_user          = count_by_id('users');
   $c_supplier      = count_by_id('suppliers');
   $c_customer      = count_by_id('customers');
   $recent_products = find_recent_product_added('5');
@@ -52,33 +54,31 @@
   </div>
 </div>
 
-<div class="row">
-  <?php
-    $panels = [
-      ['href' => 'product.php', 'icon' => 'glyphicon-shopping-cart', 'count' => $c_product['total'], 'label' => 'Products', 'bg' => 'bg-blue2'],
-      ['href' => 'supplier.php', 'icon' => 'glyphicon-send', 'count' => $c_supplier['total'], 'label' => 'Suppliers', 'bg' => 'bg-green'],
-      ['href' => 'customer.php', 'icon' => 'glyphicon-user', 'count' => $c_customer['total'], 'label' => 'Customers', 'bg' => 'bg-yellow'],
-      ['href' => 'stock_in.php', 'icon' => 'glyphicon-log-in', 'count' => $c_stock_in['total'], 'label' => 'Stock In', 'bg' => 'bg-secondary1'],
-      ['href' => 'stock_out.php', 'icon' => 'glyphicon-log-out', 'count' => $c_stock_out['total'], 'label' => 'Stock Out', 'bg' => 'bg-blue2'],
-    ];
-  ?>
-  <?php foreach ($panels as $panel): ?>
-    <a href="<?php echo $panel['href']; ?>" style="color:black;">
-      <div class="col-md-3">
-        <div class="panel panel-box clearfix">
-          <div class="panel-icon pull-left <?php echo $panel['bg']; ?>">
-            <i class="glyphicon <?php echo $panel['icon']; ?>"></i>
-          </div>
-          <div class="panel-value pull-right">
-            <h2 class="margin-top"><?php echo $panel['count']; ?></h2>
-            <p class="text-muted"><?php echo $panel['label']; ?></p>
-          </div>
-        </div>
+<?php
+  $panels = [
+    ['href' => 'product.php', 'icon' => 'glyphicon-shopping-cart', 'count' => $c_product['total'], 'label' => 'Products', 'bg' => 'bg-blue2'],
+    ['href' => 'supplier.php', 'icon' => 'glyphicon-send', 'count' => $c_supplier['total'], 'label' => 'Suppliers', 'bg' => 'bg-green'],
+    ['href' => 'customer.php', 'icon' => 'glyphicon-user', 'count' => $c_customer['total'], 'label' => 'Customers', 'bg' => 'bg-yellow'],
+    ['href' => 'stock_in.php', 'icon' => 'glyphicon-log-in', 'count' => $c_stock_in['total'], 'label' => 'Stock In', 'bg' => 'bg-purple'],
+    ['href' => 'stock_out.php', 'icon' => 'glyphicon-log-out', 'count' => $c_stock_out['total'], 'label' => 'Stock Out', 'bg' => 'bg-danger'],
+  ];
+?>
+
+<!-- Panel Gabungan Menggunakan Flexbox Agar Lebih Rapi -->
+<!-- Panel Baris Pertama (5 panel pertama) -->
+<div class="flex-panel-container">
+  <?php foreach (array_slice($panels, 0, 5) as $panel): ?>
+    <a href="<?php echo $panel['href']; ?>" class="panel">
+      <div class="panel-body text-center <?php echo $panel['bg']; ?>">
+        <i class="glyphicon <?php echo $panel['icon']; ?>" style="font-size: 24px;"></i>
+        <h4><?php echo $panel['label']; ?></h4>
+        <p><strong><?php echo $panel['count']; ?></strong></p>
       </div>
     </a>
   <?php endforeach; ?>
 </div>
 
+<!-- Tambahan bagian bawah dashboard tetap sama -->
 <div class="row">
   <!-- Stok Terendah Chart -->
   <div class="col-md-6">
@@ -92,28 +92,29 @@
     </div>
   </div>
 
-<!-- Recently Added Products -->
-<div class="col-md-6">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
-    </div>
-    <div class="panel-body">
-      <div class="list-group" style="max-height: 350px; overflow-y: auto;">
-        <?php foreach ($recent_products as $recent_product): ?>
-          <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
-            <h4 class="list-group-item-heading">
-              <?php if (empty($recent_product['image']) || !file_exists("uploads/products/" . $recent_product['image'])): ?>
-              <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="No image">
-              <?php else: ?>
-              <img class="img-avatar img-circle" src="uploads/products/<?php echo remove_junk($recent_product['image']); ?>" alt="">
-              <?php endif; ?>
-              <?php echo remove_junk(first_character($recent_product['name'])); ?>
-              <span class="label label-warning pull-right">Rp<?php echo number_format((float)$recent_product['selling_price'], 0, ',', '.'); ?></span>
-            </h4>
-            <span class="list-group-item-text pull-right"><?php echo remove_junk(first_character($recent_product['categorie'])); ?></span>
-          </a>
-        <?php endforeach; ?>
+  <!-- Recently Added Products -->
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
+      </div>
+      <div class="panel-body">
+        <div class="list-group" style="max-height: 350px; overflow-y: auto;">
+          <?php foreach ($recent_products as $recent_product): ?>
+            <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
+              <h4 class="list-group-item-heading product-title">
+                <?php if (empty($recent_product['image']) || !file_exists("uploads/products/" . $recent_product['image'])): ?>
+                <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="No image">
+                <?php else: ?>
+                <img class="img-avatar img-circle" src="uploads/products/<?php echo remove_junk($recent_product['image']); ?>" alt="">
+                <?php endif; ?>
+                <?php echo remove_junk(first_character($recent_product['name'])); ?>
+                <span class="label label-warning pull-right">Rp<?php echo number_format((float)$recent_product['selling_price'], 0, ',', '.'); ?></span>
+              </h4>
+              <span class="list-group-item-text pull-right"><?php echo remove_junk(first_character($recent_product['categorie'])); ?></span>
+            </a>
+          <?php endforeach; ?>
+        </div>
       </div>
     </div>
   </div>

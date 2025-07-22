@@ -1,52 +1,59 @@
-<ul>
-  <li>
-    <a href="admin.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>Dashboard</span>
+<ul class="nav flex-column">
+
+  <!-- Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="admin.php">
+      <i class="glyphicon glyphicon-home"></i> Dashboard
     </a>
   </li>
+
+  <!-- User Management dengan submenu -->
   <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-      <span>User Management</span>
+    <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <i class="glyphicon glyphicon-user"></i> <span>User Management</span>
     </a>
-    <ul class="nav submenu">
-      <li><a href="group.php">Categorie User</a> </li>
-      <li><a href="users.php">Manage Users</a> </li>
-   </ul>
+    <ul class="collapse list-unstyled" id="userSubmenu">
+      <li><a href="group.php">Categorie User</a></li>
+      <li><a href="users.php">Manage Users</a></li>
+    </ul>
   </li>
-  <li>
-    <a href="categorie.php" >
-      <i class="glyphicon glyphicon-indent-left"></i>
-      <span>Categories</span>
-    </a>
-  </li>
-  <li>
-    <a href="product.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-th-large"></i>
-      <span>Products</span>
+
+  <!-- Categories -->
+  <li class="nav-item">
+    <a class="nav-link" href="categorie.php">
+      <i class="glyphicon glyphicon-th-large"></i> Categories
     </a>
   </li>
-    <li>
-    <a href="supplier.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Supplier</span>
-      </a>
+
+  <!-- Products -->
+  <li class="nav-item">
+    <a class="nav-link" href="product.php">
+      <i class="glyphicon glyphicon-gift"></i> Products
+    </a>
   </li>
-    <li>
-    <a href="customer.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Customer</span>
-      </a>
+
+  <!-- Supplier -->
+  <li class="nav-item">
+    <a class="nav-link" href="supplier.php">
+      <i class="glyphicon glyphicon-briefcase"></i> Supplier
+    </a>
   </li>
+
+  <!-- Customer -->
+  <li class="nav-item">
+    <a class="nav-link" href="customer.php">
+      <i class="glyphicon glyphicon-shopping-cart"></i> Customer
+    </a>
+  </li>
+
+  <!-- Report dengan submenu -->
   <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-credit-card"></i>
-       <span>Report</span>
-      </a>
-      <ul class="nav submenu">
-         <li><a href="stock_in.php">Stock_in</a> </li>
-         <li><a href="stock_out.php">Stock_out</a> </li>
-     </ul>
+    <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <i class="glyphicon glyphicon-list-alt"></i> <span>Report</span>
+    </a>
+    <ul class="collapse list-unstyled" id="reportSubmenu">
+      <li><a href="stock_in.php">Stock In</a></li>
+      <li><a href="stock_out.php">Stock Out</a></li>
+    </ul>
   </li>
 </ul>

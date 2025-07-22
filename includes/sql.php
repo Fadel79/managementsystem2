@@ -181,7 +181,7 @@ function tableExists($table){
     return($db->num_rows($result) === 0 ? true : false);
   }
   /*--------------------------------------------------------------*/
-  /* Function for cheaking which user level has access to page
+  /* Function for cheaking which user level has access to page */
   /*--------------------------------------------------------------*/
    function page_require_level($require_level){
      global $session;

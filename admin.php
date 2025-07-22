@@ -61,8 +61,8 @@
     ['href' => 'product.php', 'icon' => 'glyphicon-shopping-cart', 'count' => $c_product['total'], 'label' => 'Products', 'bg' => 'bg-blue2'],
     ['href' => 'supplier.php', 'icon' => 'glyphicon-send', 'count' => $c_supplier['total'], 'label' => 'Suppliers', 'bg' => 'bg-green'],
     ['href' => 'customer.php', 'icon' => 'glyphicon-user', 'count' => $c_customer['total'], 'label' => 'Customers', 'bg' => 'bg-yellow'],
-    ['href' => 'stock_in.php', 'icon' => 'glyphicon-log-in', 'count' => $c_stock_in['total'], 'label' => 'Stock In', 'bg' => 'bg-secondary1'],
-    ['href' => 'stock_out.php', 'icon' => 'glyphicon-log-out', 'count' => $c_stock_out['total'], 'label' => 'Stock Out', 'bg' => 'bg-blue2'],
+    ['href' => 'stock_in.php', 'icon' => 'glyphicon-log-in', 'count' => $c_stock_in['total'], 'label' => 'Stock In', 'bg' => 'bg-purple'],
+    ['href' => 'stock_out.php', 'icon' => 'glyphicon-log-out', 'count' => $c_stock_out['total'], 'label' => 'Stock Out', 'bg' => 'bg-danger'],
   ];
 ?>
 
@@ -91,7 +91,7 @@
       </div>
     </a>
   <?php endforeach; ?>
-</div>
+</div>  
 
 <!-- Tambahan bagian bawah dashboard tetap sama -->
 <div class="row">
@@ -107,21 +107,23 @@
     </div>
   </div>
 
-  <!-- Recently Added Products -->
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
-      </div>
-      <div class="panel-body">
+ <!-- Recently Added Products -->
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong><span class="glyphicon glyphicon-th"></span> Recently Added Products</strong>
+    </div>
+    <div class="panel-body">
+      <!-- Pembungkus tambahan -->
+      <div class="recently-product-wrapper">
         <div class="list-group" style="max-height: 350px; overflow-y: auto;">
           <?php foreach ($recent_products as $recent_product): ?>
             <a class="list-group-item clearfix" href="edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
-              <h4 class="list-group-item-heading">
+              <h4 class="list-group-item-heading product-title">
                 <?php if (empty($recent_product['image']) || !file_exists("uploads/products/" . $recent_product['image'])): ?>
-                <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="No image">
+                  <img class="img-avatar img-circle" src="uploads/products/no_image.png" alt="No image">
                 <?php else: ?>
-                <img class="img-avatar img-circle" src="uploads/products/<?php echo remove_junk($recent_product['image']); ?>" alt="">
+                  <img class="img-avatar img-circle" src="uploads/products/<?php echo remove_junk($recent_product['image']); ?>" alt="">
                 <?php endif; ?>
                 <?php echo remove_junk(first_character($recent_product['name'])); ?>
                 <span class="label label-warning pull-right">Rp<?php echo number_format((float)$recent_product['selling_price'], 0, ',', '.'); ?></span>
@@ -131,9 +133,11 @@
           <?php endforeach; ?>
         </div>
       </div>
+      <!-- Akhir pembungkus tambahan -->
     </div>
   </div>
 </div>
+
 
 <div class="row">
   <!-- Latest Stock-In -->

@@ -1,36 +1,41 @@
-<ul>
-  <li>
-    <a href="op.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>Dashboard</span>
+<ul class="nav flex-column">
+
+  <!-- Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="op.php">
+      <i class="glyphicon glyphicon-home"></i> Dashboard
     </a>
   </li>
-  <li>
-    <a href="product_op.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-th-large"></i>
-      <span>Products</span>
+
+  <!-- Products -->
+  <li class="nav-item">
+    <a class="nav-link" href="product_op.php">
+      <i class="glyphicon glyphicon-gift"></i> Products
     </a>
   </li>
-    <li>
-    <a href="supplier_op.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Supplier</span>
-      </a>
+
+  <!-- Supplier -->
+  <li class="nav-item">
+    <a class="nav-link" href="supplier_op.php">
+      <i class="glyphicon glyphicon-briefcase"></i> Supplier
+    </a>
   </li>
-    <li>
-    <a href="customer_op.php" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-       <span>Customer</span>
-      </a>
+
+  <!-- Customer -->
+  <li class="nav-item">
+    <a class="nav-link" href="customer_op.php">
+      <i class="glyphicon glyphicon-shopping-cart"></i> Customer
+    </a>
   </li>
+
+  <!-- Report dengan submenu -->
   <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-credit-card"></i>
-       <span>Validation</span>
-      </a>
-      <ul class="nav submenu">
-         <li><a href="stock_in_op.php">Stock_in</a> </li>
-         <li><a href="stock_out_op.php">Stock_out</a> </li>
-     </ul>
+    <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <i class="glyphicon glyphicon-list-alt"></i> <span>Report</span>
+    </a>
+    <ul class="collapse list-unstyled" id="reportSubmenu">
+      <li><a href="stock_in_op.php">Stock In</a></li>
+      <li><a href="stock_out_op.php">Stock Out</a></li>
+    </ul>
   </li>
 </ul>
