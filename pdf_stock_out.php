@@ -64,8 +64,8 @@ foreach ($all_stock_out as $stock) {
       <td align="center">'.(int)$stock['quantity'].'</td>
       <td align="center">'.(int)$stock['stock'].'</td>
       <td>'.date('d-m-Y', strtotime($stock['date_received'])).'</td>
-      <td align="center">'.($stock['is_quantity_ok'] ? 'OK' : 'Tidak').'</td>
-      <td align="center">'.($stock['is_quality_ok'] ? 'OK' : 'Tidak').'</td>
+      <td align="center">'.($stock['is_quantity_ok'] ? 'OK' : 'NO').'</td>
+      <td align="center">'.($stock['is_quality_ok'] ? 'OK' : 'NO').'</td>
       <td>'.htmlspecialchars($stock['validation_note'] ?? '-').'</td>
     </tr>';
 }

@@ -68,7 +68,7 @@ include_once('layouts/header.php');
                     <a href="edit_stock_in_op.php?id=<?php echo (int)$stock['id']; ?>" class="btn btn-xs btn-warning" title="Edit">
                       <span class="glyphicon glyphicon-edit"></span>
                     </a>
-                    <a href="delete_stock_in.php?id=<?php echo (int)$stock['id']; ?>" class="btn btn-xs btn-danger" title="Delete">
+                    <a href="delete_stock_in_op.php?id=<?php echo (int)$stock['id']; ?>" class="btn btn-xs btn-danger" title="Delete">
                       <span class="glyphicon glyphicon-trash"></span>
                     </a>
                   </div>
